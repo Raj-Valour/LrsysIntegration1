@@ -1,0 +1,273 @@
+26-02-2026 19:28:04 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'InsertorUpdateSalesDtl' expects parameter '@PLUDescription', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 193
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 82
+ClientConnectionId:05f43d2f-956e-478c-9e8b-38da31b6b41a
+Error Number:201,State:4,Class:16
+03-03-2026 18:25:25 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:ab9a5618-01e6-42f7-871c-7c1628b87850
+Error Number:208,State:1,Class:16
+03-03-2026 18:25:35 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:ab9a5618-01e6-42f7-871c-7c1628b87850
+Error Number:208,State:1,Class:16
+03-03-2026 18:25:52 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:ab9a5618-01e6-42f7-871c-7c1628b87850
+Error Number:208,State:1,Class:16
+03-03-2026 18:26:20 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:ab9a5618-01e6-42f7-871c-7c1628b87850
+Error Number:208,State:1,Class:16
+03-03-2026 18:27:47 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:88a34cd0-1d7a-4f7b-9919-0723d581ba46
+Error Number:208,State:1,Class:16
+03-03-2026 19:34:05 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:9dbc244a-c2bc-4ce8-a778-454297e7b810
+Error Number:208,State:1,Class:16
+03-03-2026 19:41:23 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:9dbc244a-c2bc-4ce8-a778-454297e7b810
+Error Number:208,State:1,Class:16
+03-03-2026 19:58:07 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:d07379c5-65f8-498f-819c-a151d59d85cc
+Error Number:208,State:1,Class:16
+03-03-2026 19:58:27 - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Products'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at LrsysIntegration.Services.OrderService.GetProductPrice(SqlConnection conn, SqlTransaction tran, Int32 productId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 95
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 125
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 87
+ClientConnectionId:d07379c5-65f8-498f-819c-a151d59d85cc
+Error Number:208,State:1,Class:16
+06-03-2026 11:24:04 - PATCH - System.Data.SqlClient.SqlException (0x80131904): Must declare the scalar variable "@Notes".
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Controllers.OrdersController.UpdateOrder(Int64 orderRef, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 170
+ClientConnectionId:d4c6618c-a570-4903-a7d0-2a56512445c1
+Error Number:137,State:2,Class:15
+06-03-2026 23:06:38 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:13faefb9-a38e-4f49-8657-7715448de8f2
+Error Number:8144,State:2,Class:16
+06-03-2026 23:06:59 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:13faefb9-a38e-4f49-8657-7715448de8f2
+Error Number:8144,State:2,Class:16
+06-03-2026 23:07:08 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:13faefb9-a38e-4f49-8657-7715448de8f2
+Error Number:8144,State:2,Class:16
+06-03-2026 23:07:13 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:13faefb9-a38e-4f49-8657-7715448de8f2
+Error Number:8144,State:2,Class:16
+06-03-2026 23:07:18 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:13faefb9-a38e-4f49-8657-7715448de8f2
+Error Number:8144,State:2,Class:16
+07-03-2026 08:17:23 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:fe97c82f-e4e6-4ee1-9680-0f05019a8d02
+Error Number:8144,State:2,Class:16
+07-03-2026 08:19:46 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertEposSalesMst has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 78
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:fe97c82f-e4e6-4ee1-9680-0f05019a8d02
+Error Number:8144,State:2,Class:16
+07-03-2026 08:33:22 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'InsertEposSalesMst' expects parameter '@OrderDate', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderMaster(SqlConnection conn, SqlTransaction tran, OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 75
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
+ClientConnectionId:76f5d872-1423-4fd7-b884-c5f1f733ea28
+Error Number:201,State:4,Class:16

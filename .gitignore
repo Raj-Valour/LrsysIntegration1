@@ -1,0 +1,93 @@
+# ================================
+# Build results
+# ================================
+bin/
+obj/
+out/
+
+# ================================
+# Visual Studio files
+# ================================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ================================
+# Visual Studio Code
+# ================================
+.vscode/
+
+# ================================
+# Rider / JetBrains
+# ================================
+.idea/
+
+# ================================
+# OS files
+# ================================
+.DS_Store
+Thumbs.db
+
+# ================================
+# Logs
+# ================================
+*.log
+
+# ================================
+# ASP.NET Core
+# ================================
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+
+!appsettings.json
+!appsettings.Production.json
+
+# ================================
+# Secrets
+# ================================
+secrets.json
+*.pfx
+*.cer
+
+# ================================
+# Publish output
+# ================================
+publish/
+*.Publish.xml
+
+# ================================
+# Test results
+# ================================
+TestResults/
+
+# ================================
+# Entity Framework
+# ================================
+Migrations/*.Designer.cs
+Migrations/*.resx
+
+# ================================
+# Node / Frontend (if any)
+# ================================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ================================
+# Docker (optional)
+# ================================
+docker-compose.override.yml
+
+# ================================
+# Environment files
+# ================================
+.env
+.env.*
+
+# ================================
+# Coverage reports
+# ================================
+coverage/
