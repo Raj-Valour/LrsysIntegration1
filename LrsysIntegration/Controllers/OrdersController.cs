@@ -329,7 +329,19 @@ namespace LrsysIntegration.Controllers
                         });
                     }
                 }
+
+                using (var updateCmd = new SqlCommand(@"
+                        UPDATE EposSalesMst
+                        SET OrderStatus = 13                            
+                        WHERE OrderRef = @OrderRef", conn))
+                {// 🔹 Save note as "TABLE 454"
+                    updateCmd.CommandTimeout = 0;
+                    updateCmd.Parameters.AddWithValue("@OrderRef", orderRef);
+                    updateCmd.ExecuteNonQuery();
+                }
+
             }
+            // 🔹 Update master
 
             return Ok(new
             {
