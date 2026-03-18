@@ -1,7 +1,6 @@
 using System;
 
 namespace LrsysIntegration.DTOs
-
 {
     public class MealGroupDto
     {

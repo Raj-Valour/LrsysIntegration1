@@ -15,9 +15,6 @@ namespace LrsysIntegration.Controllers
     {
         private readonly LrsysContext db = new LrsysContext();
 
-        // 🔹 Employees (DTO)
-
-        //
         [HttpGet]
         [Route("employees")]
         public IHttpActionResult GetEmployees()
@@ -46,15 +43,11 @@ namespace LrsysIntegration.Controllers
             }
             catch (Exception ex)
             {
-                // simple + safe
+                 
                 return InternalServerError(ex);
             }
         }
 
-
-        //// 🔹 Application Error Logs (DTO)
-
-        // 
         [HttpGet]
         [Route("errorlogs")]
         public IHttpActionResult GetErrorLogs()
@@ -93,7 +86,6 @@ namespace LrsysIntegration.Controllers
 
             try
             {
-                // Output parameters
                 var idParam = new SqlParameter("@ErrorLogID", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
@@ -109,7 +101,6 @@ namespace LrsysIntegration.Controllers
                     Direction = ParameterDirection.Output
                 };
 
-                // Execute stored procedure
                 db.Database.ExecuteSqlCommand(
                     "EXEC InsertApplicationErrorLog @ErrorLogID OUT, @Errordescription, @ErrorModule, @Errorform, @ErrordateTime OUT, @Error OUT",
                     idParam,
@@ -120,11 +111,9 @@ namespace LrsysIntegration.Controllers
                     errorParam
                 );
 
-                // Read output values
                 int newId = (idParam.Value != DBNull.Value) ? Convert.ToInt32(idParam.Value) : -1;
                 string spError = errorParam.Value?.ToString();
 
-                // If SP returned error
                 if (!string.IsNullOrEmpty(spError))
                 {
                     return Content(System.Net.HttpStatusCode.BadRequest, new

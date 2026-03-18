@@ -43,12 +43,12 @@ namespace LrsysIntegration.Controllers
                 var cmd = new SqlCommand(@"
                 SELECT COUNT(1)
                 FROM EposSalesMst
-                WHERE OrderNotes = @TableNumber
+                WHERE LTRIM(RTRIM(OrderNotes)) = @TableNumber
                 AND OrderStatus IN (13,15)", conn);
 
-                cmd.Parameters.AddWithValue("@TableNumber", tableNumber);
+                cmd.Parameters.AddWithValue("@TableNumber", "TABLE " + tableNumber);
 
-                int count = (int)cmd.ExecuteScalar();
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
 
                 return Ok(new { Exists = count > 0 });
             }
@@ -56,7 +56,7 @@ namespace LrsysIntegration.Controllers
 
         /* ============================================================
            POST: api/orders
-           Creates suspended order (Status = 15)
+           Creates suspended order 
         ============================================================ */
         [HttpPost]
         [Route("")]
@@ -80,18 +80,37 @@ namespace LrsysIntegration.Controllers
                 {
                     try
                     {
-                        // ✅  Create new master directly
-                        orderRef = _orderService.InsertOrderMaster(conn, tran, dto);
 
-                        // ✅ Insert all items (no upsert here)
-                        foreach (var item in dto.Items)
+                        var checkCmd = new SqlCommand(@"
+                        SELECT TOP 1 OrderRef
+                        FROM EposSalesMst
+                        WHERE OrderNotes = @Notes
+                        AND OrderStatus IN (13,15)", conn, tran);
+
+                        var note = "TABLE " + (dto.TableNumber ?? "");
+
+                        checkCmd.Parameters.AddWithValue("@Notes", note);
+
+                        var existingOrder = checkCmd.ExecuteScalar();
+
+                        if (existingOrder != null)
                         {
-                            _orderService.InsertOrderDetail(conn, tran, orderRef, item, dto.OrderType, dto.UserID);
+                            tran.Rollback();
 
+                            return Ok(new
+                            {
+                                Exists = true,
+                                OrderRef = Convert.ToInt64(existingOrder)
+                            });
                         }
 
+                        orderRef = _orderService.InsertOrderMaster(conn, tran, dto);
 
-                        // ✅ Recalculate totals
+                        foreach (var item in dto.Items)
+                        {
+                            _orderService.InsertOrderDetail(conn, tran, orderRef, item, dto.OrderType, dto.UserID, dto.TillID);
+                        }
+
                         using (var totalCmd = new SqlCommand("UpdateSalesMst_Total", conn, tran))
                         {
                             totalCmd.CommandType = CommandType.StoredProcedure;
@@ -134,8 +153,15 @@ namespace LrsysIntegration.Controllers
         [HttpPatch]
         [AcceptVerbs("PATCH")]
         [Route("{orderRef:long}")]
-        public IHttpActionResult UpdateOrder(long orderRef, OrderDto dto)
+        public IHttpActionResult UpdateOrder(long orderRef, [FromBody] OrderDto dto)
         {
+            try
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "patch_log.txt");
+                File.AppendAllText(path, DateTime.Now + $" - PATCH Received for OrderRef {orderRef}. DTO null: {dto == null}" + Environment.NewLine);
+            }
+            catch { }
+
             if (dto == null || dto.Items == null)
                 return BadRequest("Invalid data");
 
@@ -149,7 +175,6 @@ namespace LrsysIntegration.Controllers
                 {
                     try
                     {
-                        // 🔹 Check if order exists
                         using (var checkCmd = new SqlCommand(
                             "SELECT COUNT(1) FROM EposSalesMst WHERE OrderRef=@OrderRef",
                             conn, tran))
@@ -164,40 +189,142 @@ namespace LrsysIntegration.Controllers
                             }
                         }
 
-                        // 🔹 Update master
                         using (var updateCmd = new SqlCommand(@"
                         UPDATE EposSalesMst
                         SET OrderNotes = @Notes,
                             OrderStatus = @OrderStatus,
                             LastUpdatedAt = GETDATE()
                         WHERE OrderRef = @OrderRef", conn, tran))
-                        {// 🔹 Save note as "TABLE 454"
+                        {
                             var note = "TABLE " + (dto.TableNumber ?? "");
 
-                            updateCmd.Parameters.AddWithValue("@Notes", note); 
-                            updateCmd.Parameters.AddWithValue("@OrderStatus", dto.OrderStatus);
+                            updateCmd.Parameters.AddWithValue("@Notes", note);
+                            
+                            int currentStatus;
+
+                            using (var statusCmd = new SqlCommand(@"
+                                SELECT OrderStatus FROM EposSalesMst WHERE OrderRef = @OrderRef
+                            ", conn, tran))
+                            {
+                                statusCmd.Parameters.AddWithValue("@OrderRef", orderRef);
+                                currentStatus = Convert.ToInt32(statusCmd.ExecuteScalar());
+                            }
+
+                            updateCmd.Parameters.AddWithValue("@OrderStatus", currentStatus);
                             updateCmd.Parameters.AddWithValue("@OrderRef", orderRef);
 
                             updateCmd.ExecuteNonQuery();
                         }
 
-
-                        // 🔥 DELETE ALL EXISTING DETAILS (SAFE FOR MEAL DEALS)
-                        using (var delCmd = new SqlCommand(
-                            "DELETE FROM EposSalesDtl WHERE OrderMstRef = @OrderRef",
-                            conn, tran))
-                        {
-                            delCmd.Parameters.AddWithValue("@OrderRef", orderRef);
-                            delCmd.ExecuteNonQuery();
-                        }
-
-                        // 🔥 REINSERT ALL ITEMS
                         foreach (var item in dto.Items)
                         {
-                            _orderService.InsertOrderDetail(conn, tran, orderRef, item, dto.OrderType,dto.UserID);
+                            if (!string.IsNullOrWhiteSpace(item.VoidReason))
+                            {
+                                if (item.SalesDtlId.HasValue && item.SalesDtlId.Value > 0)
+                                {
+                                    using (var voidCmd = new SqlCommand(@"
+                                        UPDATE EposSalesDtl
+                                        SET VoidLine = 1,
+                                            VoidedBy = @UserId,
+                                            VoidedAt = GETDATE(),
+                                            DiscountReason = @Reason
+                                        WHERE SalesDtlId = @SalesDtlId
+                                    ", conn, tran))
+                                    {
+                                        voidCmd.Parameters.AddWithValue("@UserId", dto.UserID);
+                                        voidCmd.Parameters.AddWithValue("@Reason", item.VoidReason);
+                                        voidCmd.Parameters.AddWithValue("@SalesDtlId", item.SalesDtlId.Value);
+
+                                        voidCmd.ExecuteNonQuery();
+                                    }
+                                }
+                                else
+                                {
+                                    using (var voidCmd = new SqlCommand(@"
+                                        UPDATE EposSalesDtl
+                                        SET VoidLine = 1,
+                                            VoidedBy = @UserId,
+                                            VoidedAt = GETDATE(),
+                                            DiscountReason = @Reason
+                                        WHERE OrderMstRef = @OrderRef
+                                        AND PLUID = @ProductId
+                                        AND ISNULL(VoidLine,0) = 0
+                                    ", conn, tran))
+                                    {
+                                        voidCmd.Parameters.AddWithValue("@UserId", dto.UserID);
+                                        voidCmd.Parameters.AddWithValue("@Reason", item.VoidReason);
+                                        voidCmd.Parameters.AddWithValue("@OrderRef", orderRef);
+                                        voidCmd.Parameters.AddWithValue("@ProductId", item.ProductId);
+
+                                        int rows = voidCmd.ExecuteNonQuery();
+
+                                        System.Diagnostics.Debug.WriteLine("VOID ROWS: " + rows);
+
+                                        if (rows == 0)
+                                        {
+                                            System.Diagnostics.Debug.WriteLine("VOID SKIPPED");
+                                        }
+                                    }
+                                }
+                            }
                         }
 
-                        // 🔥 Recalculate totals
+                        bool isFullVoid;
+
+                        using (var checkCmd = new SqlCommand(@"
+                                SELECT COUNT(1)
+                                FROM EposSalesDtl
+                                WHERE OrderMstRef = @OrderRef
+                                AND ISNULL(VoidLine,0) = 0
+                            ", conn, tran))
+                        {
+                            checkCmd.Parameters.AddWithValue("@OrderRef", orderRef);
+
+                            int remaining = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                            isFullVoid = remaining == 0;
+                        }
+
+                        if (isFullVoid)
+                        {
+                            using (var fullVoidCmd = new SqlCommand(@"
+                                    UPDATE EposSalesMst
+                                    SET OrderStatus = 25,
+                                        LastUpdatedAt = GETDATE()
+                                    WHERE OrderRef = @OrderRef
+                                ", conn, tran))
+                            {
+                                fullVoidCmd.Parameters.AddWithValue("@OrderRef", orderRef);
+                                fullVoidCmd.ExecuteNonQuery();
+                            }
+
+                            tran.Commit();
+                            return Ok(new { OrderRef = orderRef });
+                        }
+
+                        foreach (var item in dto.Items)
+                        {
+                            if (!string.IsNullOrWhiteSpace(item.VoidReason))
+                                continue;
+
+                            // If client provided SalesDtlId, treat as existing row - do not insert or modify it here.
+                            if (item.SalesDtlId.HasValue && item.SalesDtlId.Value > 0)
+                                continue;
+
+                            // Only append new items - don't re-insert existing lines
+                            if (!item.IsNew)
+                                continue;
+
+                            _orderService.InsertOrderDetail(
+                                conn,
+                                tran,
+                                orderRef,
+                                item,
+                                dto.OrderType,
+                                dto.UserID,
+                                dto.TillID);
+                        }
+
                         using (var totalCmd = new SqlCommand("UpdateSalesMst_Total", conn, tran))
                         {
                             totalCmd.CommandType = CommandType.StoredProcedure;
@@ -254,11 +381,10 @@ namespace LrsysIntegration.Controllers
             {
                 conn.Open();
 
-                // 🔹 1️⃣ Get Master
                 var masterCmd = new SqlCommand(@"
-            SELECT OrderNotes, VATTotal, OrderTotal
-            FROM EposSalesMst
-            WHERE OrderRef = @OrderRef", conn);
+                SELECT OrderNotes, VATTotal, OrderTotal
+                FROM EposSalesMst
+                WHERE OrderRef = @OrderRef", conn);
 
                 masterCmd.Parameters.AddWithValue("@OrderRef", orderRef);
 
@@ -279,20 +405,21 @@ namespace LrsysIntegration.Controllers
                         : Convert.ToDecimal(reader["OrderTotal"]);
                 }
 
-                // 🔹 2️⃣ Get Items (🔥 UPDATED QUERY)
+
                 var itemsCmd = new SqlCommand(@"
-            SELECT 
+                SELECT 
                 SalesDtlId,
                 PLUID,
                 Description,
                 Qty,
                 UnitPrice,
                 VATPerc,
-                InternalSalesDtlID
-            FROM EposSalesDtl
-            WHERE OrderMstRef = @OrderRef
-            AND ISNULL(VoidLine,0)=0
-            ORDER BY SalesDtlId", conn);
+                InternalSalesDtlID,
+                UnitName
+                FROM EposSalesDtl
+                WHERE OrderMstRef = @OrderRef
+                AND ISNULL(VoidLine,0)=0
+                ORDER BY SalesDtlId", conn);
 
                 itemsCmd.Parameters.AddWithValue("@OrderRef", orderRef);
 
@@ -307,23 +434,28 @@ namespace LrsysIntegration.Controllers
 
                         items.Add(new
                         {
-                            InternalSalesDtlId = salesDtlId,
+                            // expose the actual SalesDtlId for clients to reference
+                            SalesDtlId = salesDtlId,
                             ParentSalesDtlId = parentId == 0 ? (long?)null : parentId,
                             ProductId = Convert.ToInt32(reader["PLUID"]),
                             Description = reader["Description"]?.ToString() ?? "",
                             Quantity = Convert.ToInt32(reader["Qty"]),
 
-                            UnitPrice = Convert.ToDecimal(reader["UnitPrice"]),   // ✅ IMPORTANT
-                            LineTotal = Convert.ToDecimal(reader["UnitPrice"]) * Convert.ToInt32(reader["Qty"]), // ✅
+                            UnitPrice = Convert.ToDecimal(reader["UnitPrice"]),
+                            LineTotal = Convert.ToDecimal(reader["UnitPrice"]) * Convert.ToInt32(reader["Qty"]),
                             LineVAT = reader["VATPerc"] == DBNull.Value
-        ? 0
-        : (Convert.ToDecimal(reader["UnitPrice"]) * Convert.ToInt32(reader["Qty"]))
-          - ((Convert.ToDecimal(reader["UnitPrice"]) * Convert.ToInt32(reader["Qty"]))
-             / (1 + (Convert.ToDecimal(reader["VATPerc"]) / 100m))), // ✅
+                                ? 0
+                                : (Convert.ToDecimal(reader["UnitPrice"]) * Convert.ToInt32(reader["Qty"]))
+                                  - ((Convert.ToDecimal(reader["UnitPrice"]) * Convert.ToInt32(reader["Qty"]))
+                                     / (1 + (Convert.ToDecimal(reader["VATPerc"]) / 100m))),
+
+                            ItemNote = reader["UnitName"] == DBNull.Value
+                                ? ""
+                                : reader["UnitName"].ToString(),
 
                             VatPercent = reader["VATPerc"] == DBNull.Value
-        ? 0
-        : Convert.ToDecimal(reader["VATPerc"]),
+                                ? 0
+                                : Convert.ToDecimal(reader["VATPerc"]),
 
                             IsMealParent = parentId == 0
                         });
@@ -363,7 +495,7 @@ namespace LrsysIntegration.Controllers
                          cmd.CommandType = CommandType.StoredProcedure;
                          cmd.Parameters.Add("@OrderRef", SqlDbType.BigInt).Value = orderRef;
 
-                         cmd.ExecuteNonQuery();   // ✅ THIS WAS MISSING
+                         cmd.ExecuteNonQuery();  
                      }
                  }
 
@@ -395,10 +527,12 @@ namespace LrsysIntegration.Controllers
                     OrderDate,
                     OrderTotal,
                     OrderNotes,
-                    LastUpdatedAt
+                    LastUpdatedAt,
+                    OrderStatus
                 FROM EposSalesMst
-                WHERE OrderStatus IN (13,14,15)
+                WHERE OrderStatus IN (13,15)
                 AND OrderNotes LIKE 'TABLE%'
+                AND OrderStatus <> 25
                 ORDER BY OrderDate DESC", conn);
 
                 cmd.CommandTimeout = 120;
@@ -425,7 +559,9 @@ namespace LrsysIntegration.Controllers
 
                             LastUpdated = reader["LastUpdatedAt"] == DBNull.Value
                                 ? DateTime.Now
-                                : Convert.ToDateTime(reader["LastUpdatedAt"])
+                                : Convert.ToDateTime(reader["LastUpdatedAt"]),
+
+                            OrderStatus = Convert.ToInt32(reader["OrderStatus"])
                         });
                     }
                 }
@@ -464,5 +600,4 @@ namespace LrsysIntegration.Controllers
             }
         }
     }
-
 }

@@ -52,20 +52,22 @@ namespace LrsysIntegration.Services
 
                 CASE 
                     WHEN ISNULL(SubDepartments.SubDepartment1BackColor,'')='' 
-                    THEN ISNULL(DepartmentBackColor,'Black') 
+                    THEN ISNULL(Departments.DepartmentBackcolor,'Black') 
                     ELSE SubDepartments.SubDepartment1BackColor 
                 END AS BackColor,
 
                 CASE 
                     WHEN ISNULL(SubDepartments.SubDepartment1ForeColor,'')='' 
-                    THEN ISNULL(DepartmentForeColor,'White') 
+                    THEN ISNULL(Departments.DepartmentForecolor,'White') 
                     ELSE SubDepartments.SubDepartment1ForeColor 
                 END AS ForeColor,
 
                 PLUQ.DepartmentID,
                 DepartmentName,
                 ProductCode,
-                PLUQ.SellingPrice AS Price
+                PLUQ.SellingPrice AS Price,
+                ISNULL(Departments.DepartmentBackcolor,'Black') AS DepartmentBackColor,
+                ISNULL(Departments.DepartmentForecolor,'White') AS DepartmentForeColor
                 FROM Departments
                 INNER JOIN PLUQ ON Departments.DepartmentID = PLUQ.DepartmentID
                 LEFT JOIN VATMaster v ON PLUQ.VATID = v.VATID
@@ -94,12 +96,13 @@ namespace LrsysIntegration.Services
                                     ? Convert.ToDecimal(dr["Price"])
                                     : 0,
                             HasMealDeal = dr["HasMealDeal"] != DBNull.Value
-                                        && Convert.ToInt32(dr["HasMealDeal"]) == 1
+                                        && Convert.ToInt32(dr["HasMealDeal"]) == 1,
+                            DepartmentBackColor = dr["DepartmentBackColor"].ToString(),
+                            DepartmentForeColor = dr["DepartmentForeColor"].ToString()
                         });
                     }
                 }
 
-                // Now load notes options and attach to items by DepartmentId
                 string notesSql = @"
                 SELECT
                     CAST(LEFT(TableLinkedTo, CHARINDEX('/', TableLinkedTo) - 1) AS INT) AS DepartmentID,
@@ -135,7 +138,6 @@ namespace LrsysIntegration.Services
                     }
                 }
 
-                // Attach notes to each item
                 foreach (var item in items)
                 {
                     List<NoteOptionDto> deptList;
@@ -166,11 +168,11 @@ namespace LrsysIntegration.Services
                         TextColor
                     FROM MealsMaster
                     WHERE ISNULL(Deleted,0)=0
-                    AND ProductID=@ProductID";
+                    AND ProductID=@PRODUCTID";
 
                 using (var cmd = new SqlCommand(sql, con))
                 {
-                    cmd.Parameters.AddWithValue("@ProductID", parentProductId);
+                    cmd.Parameters.AddWithValue("@PRODUCTID", parentProductId);
 
                     using (var dr = cmd.ExecuteReader())
                     {

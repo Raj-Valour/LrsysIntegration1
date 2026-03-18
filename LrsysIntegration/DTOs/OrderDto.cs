@@ -9,9 +9,8 @@ namespace LrsysIntegration.DTOs
         public string Notes { get; set; }
         public long? OrderRef { get; set; }
         public int UserID { get; set; }
-
-        // ✅ ADD THIS
-        public short OrderType { get; set; }   // 0 = VAT excluded, 1 = VAT included
+        public int TillID { get; set; }
+        public short OrderType { get; set; }   
         public int OrderStatus { get; set; } = 15;
         public List<OrderItemDto> Items { get; set; }
 
@@ -19,7 +18,7 @@ namespace LrsysIntegration.DTOs
         {
             TableNumber = "";
             Notes = "";
-            OrderType = 0;   // default safe
+            OrderType = 0;   
             Items = new List<OrderItemDto>();
         }
     }

@@ -271,3 +271,68 @@ Error Number:8144,State:2,Class:16
    at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 78
 ClientConnectionId:76f5d872-1423-4fd7-b884-c5f1f733ea28
 Error Number:201,State:4,Class:16
+13-03-2026 16:49:46 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertorUpdateSalesDtl has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType, Int32 userId, Int32 tillId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 175
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 113
+ClientConnectionId:d0c60f70-bc9d-4af8-a881-1156d584add4
+Error Number:8144,State:2,Class:16
+13-03-2026 16:49:58 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertorUpdateSalesDtl has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType, Int32 userId, Int32 tillId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 175
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 113
+ClientConnectionId:d0c60f70-bc9d-4af8-a881-1156d584add4
+Error Number:8144,State:2,Class:16
+13-03-2026 16:59:42 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertorUpdateSalesDtl has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType, Int32 userId, Int32 tillId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 175
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 113
+ClientConnectionId:8911d918-3ec3-4baa-afe6-8e46b12a2cfa
+Error Number:8144,State:2,Class:16
+13-03-2026 16:59:44 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertorUpdateSalesDtl has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType, Int32 userId, Int32 tillId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 175
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 113
+ClientConnectionId:8911d918-3ec3-4baa-afe6-8e46b12a2cfa
+Error Number:8144,State:2,Class:16
+13-03-2026 17:00:10 - System.Data.SqlClient.SqlException (0x80131904): Procedure or function InsertorUpdateSalesDtl has too many arguments specified.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LrsysIntegration.Services.OrderService.InsertOrderDetail(SqlConnection conn, SqlTransaction tran, Int64 orderRef, OrderItemDto item, Int16 orderType, Int32 userId, Int32 tillId) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Services\OrderService.cs:line 175
+   at LrsysIntegration.Controllers.OrdersController.PostOrder(OrderDto dto) in C:\Users\kavya\Downloads\New Lrsys-backend\LrsysIntegration-Valour\LrsysIntegration\Controllers\OrdersController.cs:line 113
+ClientConnectionId:8911d918-3ec3-4baa-afe6-8e46b12a2cfa
+Error Number:8144,State:2,Class:16

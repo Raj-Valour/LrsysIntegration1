@@ -1,6 +1,5 @@
 ﻿namespace LrsysIntegration.DTOs
 {
-    // NoteOptionDto included here so it's compiled without modifying the csproj
     public class NoteOptionDto
     {
         public int DepartmentId { get; set; }
@@ -24,7 +23,9 @@
         public decimal VatPercent { get; set; }
         public bool HasMealDeal { get; set; }
 
-        // Added notes options for the menu item (per-department predefined notes)
         public System.Collections.Generic.List<NoteOptionDto> NotesOptions { get; set; } = new System.Collections.Generic.List<NoteOptionDto>();
+
+        public string DepartmentBackColor { get; set; }
+        public string DepartmentForeColor { get; set; }
     }
 }

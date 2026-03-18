@@ -9,5 +9,6 @@ namespace LrsysIntegration.DTOs
         public decimal Total { get; set; }
         public string Table { get; set; }
         public DateTime LastUpdated { get; set; }
+        public int OrderStatus { get; set; }
     }
 }

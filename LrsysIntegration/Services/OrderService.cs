@@ -87,11 +87,11 @@ namespace LrsysIntegration.Services
                 cmd.Parameters.AddWithValue("@OrderTakenBy", dto.UserID);
                 cmd.Parameters.AddWithValue("@OrderCommissionTo", dto.UserID);
                 cmd.Parameters.AddWithValue("@OrderNotes", "TABLE " + dto.TableNumber);
-                cmd.Parameters.AddWithValue("@OrderStatus", dto.OrderStatus); // Suspended
+                cmd.Parameters.AddWithValue("@OrderStatus", dto.OrderStatus);
                 cmd.Parameters.AddWithValue("@DeliveryStatus", 0);
                 cmd.Parameters.AddWithValue("@CustomerID", 0);
                 cmd.Parameters.AddWithValue("@CompanyID", companyId);
-                cmd.Parameters.AddWithValue("@TillID", "");
+                cmd.Parameters.AddWithValue("@TillID", dto.TillID);
                 cmd.Parameters.AddWithValue("@DeliveryName", "");
                 cmd.Parameters.AddWithValue("@DeliveryAddress", "");
                 cmd.Parameters.AddWithValue("@DeliveryTown", "");
@@ -118,14 +118,14 @@ namespace LrsysIntegration.Services
             Insert Detail
         ============================================================ */
         public void InsertOrderDetail(
-            SqlConnection conn,
-            SqlTransaction tran,
-            long orderRef,
-            OrderItemDto item,
-            short orderType,
-            int userId)
+        SqlConnection conn,
+        SqlTransaction tran,
+        long orderRef,
+        OrderItemDto item,
+        short orderType,
+        int userId,
+        int tillId)
         {
-            // 🔹 1️⃣ Insert Parent (Normal item OR Meal Parent)
             long parentId;
 
             int companyId;
@@ -147,14 +147,17 @@ namespace LrsysIntegration.Services
                 cmd.Parameters.AddWithValue("@barcode", item.Barcode ?? "");
                 cmd.Parameters.AddWithValue("@packSize", 1);
                 cmd.Parameters.AddWithValue("@CompanyID", companyId);
-                cmd.Parameters.AddWithValue("@TillID", "");
+                cmd.Parameters.AddWithValue("@TillID", tillId);
                 cmd.Parameters.AddWithValue("@WeightProduct", false);
                 cmd.Parameters.AddWithValue("@Discount", 0);
                 cmd.Parameters.AddWithValue("@DiscountType", "");
-                cmd.Parameters.AddWithValue("@DiscountReason", "");
+
+                string unitNote = item.ItemNote;
+                cmd.Parameters.AddWithValue("@DiscountReason",
+                    string.IsNullOrWhiteSpace(item.VoidReason) ? (object)DBNull.Value : item.VoidReason);
+
                 cmd.Parameters.AddWithValue("@OrderType", orderType);
                 cmd.Parameters.AddWithValue("@RefundPrice", 0);
-
                 cmd.Parameters.AddWithValue("@MealDealItem", item.IsMealDeal);
                 cmd.Parameters.AddWithValue("@InternalSalesDtlID", 0);
 
@@ -177,9 +180,41 @@ namespace LrsysIntegration.Services
                     throw new Exception(error);
 
                 parentId = Convert.ToInt64(salesDtlIdParam.Value);
+
+                if (!string.IsNullOrWhiteSpace(unitNote))
+                {
+                    using (var noteCmd = new SqlCommand(@"
+                            UPDATE EposSalesDtl
+                            SET UnitName = @Note
+                            WHERE SalesDtlId = @SalesDtlId
+                        ", conn, tran))
+                    {
+                        noteCmd.Parameters.AddWithValue("@Note", unitNote);
+                        noteCmd.Parameters.AddWithValue("@SalesDtlId", parentId);
+                        noteCmd.ExecuteNonQuery();
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(item.VoidReason))
+                {
+                    using (var voidCmd = new SqlCommand(@"
+                        UPDATE EposSalesDtl
+                        SET VoidLine = 1,
+                            VoidedBy = @UserId,
+                            VoidedAt = GETDATE(),
+                            DiscountReason = @Reason
+                        WHERE SalesDtlId = @SalesDtlId
+                    ", conn, tran))
+                    {
+                        voidCmd.Parameters.AddWithValue("@UserId", userId);
+                        voidCmd.Parameters.AddWithValue("@SalesDtlId", parentId);
+                        voidCmd.Parameters.AddWithValue("@Reason", item.VoidReason);
+
+                        voidCmd.ExecuteNonQuery();
+                    }
+                }
             }
 
-            // 🔹 2️⃣ If Meal Deal → Insert Children
             if (item.IsMealDeal && item.MealItems != null && item.MealItems.Count > 0)
             {
                 foreach (var child in item.MealItems)
@@ -198,11 +233,18 @@ namespace LrsysIntegration.Services
                         childCmd.Parameters.AddWithValue("@barcode", child.Barcode ?? "");
                         childCmd.Parameters.AddWithValue("@packSize", 1);
                         childCmd.Parameters.AddWithValue("@CompanyID", companyId);
-                        childCmd.Parameters.AddWithValue("@TillID", "");
+                        childCmd.Parameters.AddWithValue("@TillID", tillId);
                         childCmd.Parameters.AddWithValue("@WeightProduct", false);
                         childCmd.Parameters.AddWithValue("@Discount", 0);
                         childCmd.Parameters.AddWithValue("@DiscountType", "");
-                        childCmd.Parameters.AddWithValue("@DiscountReason", "Meal Deal");
+                        object childDiscountReason;
+
+                        if (string.IsNullOrWhiteSpace(child.VoidReason))
+                            childDiscountReason = "Meal Deal";
+                        else
+                            childDiscountReason = child.VoidReason;
+
+                        childCmd.Parameters.AddWithValue("@DiscountReason", childDiscountReason);
                         childCmd.Parameters.AddWithValue("@OrderType", orderType);
                         childCmd.Parameters.AddWithValue("@RefundPrice", 0);
 
@@ -223,19 +265,31 @@ namespace LrsysIntegration.Services
 
                         childCmd.ExecuteNonQuery();
 
+                        if (!string.IsNullOrWhiteSpace(child.ItemNote))
+                        {
+                            using (var noteCmd = new SqlCommand(@"
+                                UPDATE EposSalesDtl
+                                SET UnitName = @Note
+                                WHERE SalesDtlId = @SalesDtlId
+                            ", conn, tran))
+                            {
+                                noteCmd.Parameters.AddWithValue("@Note", child.ItemNote);
+                                noteCmd.Parameters.AddWithValue("@SalesDtlId", childOutId.Value);
+                                noteCmd.ExecuteNonQuery();
+                            }
+                        }
+
                         var err = childError.Value?.ToString();
                         if (!string.IsNullOrEmpty(err))
                             throw new Exception(err);
 
-                        // 🔥🔥🔥 IMPORTANT FIX HERE
-                        // SP overrides UnitPrice, so we force it back to 0
                         using (var fixCmd = new SqlCommand(@"
-                    UPDATE EposSalesDtl
-                    SET UnitPrice = 0,
-                        LineTotal = 0,
-                        LineVAT = 0
-                    WHERE SalesDtlId = @SalesDtlId
-                ", conn, tran))
+                            UPDATE EposSalesDtl
+                            SET UnitPrice = 0,
+                                LineTotal = 0,
+                                LineVAT = 0
+                            WHERE SalesDtlId = @SalesDtlId
+                        ", conn, tran))
                         {
                             fixCmd.Parameters.AddWithValue("@SalesDtlId", childOutId.Value);
                             fixCmd.ExecuteNonQuery();
@@ -244,7 +298,5 @@ namespace LrsysIntegration.Services
                 }
             }
         }
-
     }
 }
-

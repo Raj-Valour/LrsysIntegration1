@@ -1,13 +1,9 @@
 using System;
 
 namespace LrsysIntegration.DTOs
-
 {
-
     public class EmployeeDTO
-
     {
-
         public int UserID { get; set; }
 
         public string UserCode { get; set; }
@@ -19,9 +15,7 @@ namespace LrsysIntegration.DTOs
         public int? JobType { get; set; }
 
         public bool? Inactive { get; set; }
-
     }
-
 }
 
 
