@@ -546,8 +546,7 @@ namespace LrsysIntegration.Controllers
                     OrderStatus
                 FROM EposSalesMst
                 WHERE OrderStatus IN (13,15)
-                AND OrderNotes LIKE 'TABLE%'
-                AND OrderStatus <> 25
+                AND OrderNotes LIKE 'TABLE%'              
                 ORDER BY OrderDate DESC", conn);
 
                 cmd.CommandTimeout = 120;
